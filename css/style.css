@@ -1,0 +1,15 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#game {
+    display: grid;
+    grid-template-columns: repeat(1fr, 7);
+    grid-template-rows: 100px 1fr 1fr 100px;
+}
