@@ -5,7 +5,10 @@ const deck = [
         suit: 'heart',
         value: 13,
         img:'../images/hearts-K.svg',
-        proceeds:''
+        proceeds:'',
+        foundation : {
+            value: 12,
+        }
     },
     {
         suit: 'heart',
