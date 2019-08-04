@@ -30,6 +30,7 @@ body {
 
 #deck img {
     width: 15vmin;
+    margin: .5vmin;
 }
 
 #dealer {
@@ -99,6 +100,9 @@ body {
     position: relative;
 }
 
+.col {
+    margin: .5vmin;
+}
 
 .card {
     border: .1vmin solid lightcyan;
@@ -107,7 +111,6 @@ body {
     background-color: floralwhite;
     background-size: contain;
     background-repeat: no-repeat;
-    margin: .5vmin;
     filter: drop-shadow(.1vmin .2vmin .2vmin grey);
     cursor: pointer;
 }
@@ -160,7 +163,7 @@ body {
     body{
         margin: 0;
     }
-    
+
     #game-row1 {
         flex-direction: column;
     }

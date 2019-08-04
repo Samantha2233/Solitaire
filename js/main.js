@@ -418,6 +418,48 @@ game.addEventListener('click', function(event) {
 
 
 
+deck.addEventListener('click', function() {
+    //grab divs for card imgs to be placed in
+    // let cardD1 = document.getElementById('cardD1');
+    // let cardD2 = document.getElementById('cardD2');
+    // let cardD3 = document.getElementById('cardD3');
+
+
+    //pop card from deck array to be placed into 3 card divs
+    i = 0;
+    while(i < 3) {
+        i++;
+        cardID = "";
+        cardID = 'cardD'+i;
+        //grab a card from deck
+        let newCard = deckArr.pop();
+        console.log(newCard);
+        //grab image from that card
+        let newCardImg = `url(${newCard.img})`;
+        console.log(newCardImg);
+        //apply image to cardD space
+
+        let card = document.getElementById(`${cardID}`);
+
+        console.log(cardID);
+        card.style.backgroundImage = newCardImg;
+        
+
+
+        console.log(i);
+        console.log(deckArr); 
+    }
+    
+});
+
+        
+        // //grab a div for image to be placed in
+        // let card = document.getElementById(`${cardID}`);
+        // //place images in card divs!
+        // let cardImg = `url(${cardObj.img})`;
+        // card.style.backgroundImage = cardImg;
+
+
 
 
 // when heartsF is dragged to, only ace of hearts can go there
