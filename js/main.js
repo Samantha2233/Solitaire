@@ -1,5 +1,4 @@
-console.log('sanity');
-
+/////////////////// C O N S T A N T S ////////////////////
 const cardsArr = [
     {
         name: 'King of Hearts',
@@ -318,47 +317,121 @@ const cardsArr = [
     }
 ]
 
-//grab gameboard
-const game = document.getElementById('game-row2');
-
-//grab card class
-const cards = document.getElementsByClassName('card');
-
-
-//test displaying one card on front-end
-const cardOne = document.getElementById('card1');
-const test = cardsArr[0].img;
-cardOne.style.backgroundImage = `url(${cardsArr[0].img})`
-
-
-//to display images on the front end
-//for each item in the cardsArr
-var i = 0;
-
-cardsArr.forEach(function(item) {
-    //iterate through cards from HTML
-    do{
-        cardID = "";
-        i++;
-        cardID = 'card'+i;
-    }
-    while(i <= 0);
-    console.log(cardID);
-
-    //grab a div to be placed in
-    const card = document.getElementById(cardID);
-    
-    //place images in card divs!
-    card.style.backgroundImage = `url(${item.img})`
-    console.log(card);
-});
-    
-
-
-
 //constants of soundbites, card flipping, celebratory winnning sound
 
+//////////////  G L O B A L  V A R I A B L E S  ////////////////
+const game = document.getElementById('game-row2');
+var cards = document.getElementsByClassName('card');
 
-//State variables --> what you have to keep track of 
-//top card of destination pile 
-//bottom card of moving pile
+const column = document.getElementsByClassName('col');
+const deck = document.getElementById('deck');
+
+
+
+
+//////////////// S T A T E  V A R I A B L E S ////////////////
+const deckArr = [];
+const dealSpace = document.getElementById('deal-space');
+
+const heartsF = document.getElementById('heartsF');
+const clubsF = document.getElementById('clubsF');
+const diamondsF = document.getElementById('diamondsF');;
+const spadesF = document.getElementById('spadesF');;
+
+
+
+
+
+
+
+/////////////////////  I N I T I A T E  ///////////////////////
+init();
+
+function init() {
+//shuffle cards
+cardsArr.sort(() => 0.5 - Math.random());
+
+//to display 28 images on the front end & 24 in deck
+var i = 0;
+cardsArr.forEach(function(cardObj) {
+    //iterate through card divs from HTML
+    if(i < 28) {
+        var cardID = "";
+        i += 1;
+        cardID = 'card'+i;
+        //grab a div for image to be placed in
+        let card = document.getElementById(`${cardID}`);
+        //place images in card divs!
+        let cardImg = `url(${cardObj.img})`;
+        card.style.backgroundImage = cardImg;
+
+
+    //images 28 - 54 go to #deck
+    } else if(i >= 28) {
+        i += 1;
+        deckArr.push(cardObj);
+    } else if(i === 52){
+        return;
+    }
+});
+}
+
+
+
+
+
+///////////////  E V E N T  L I S T E N E R S  ///////////////
+
+
+////// apply  S E L E C T  class to cards that are clicked
+game.addEventListener('click', function(event) {
+    //event target is 'clicked'
+    let clicked = event.target
+    //make it so columns cannot be clicked
+    if(clicked.className === "col") {
+        return;
+    };
+    // toggle selected class too
+    clicked.classList.toggle("selected");
+});
+
+
+
+//if user selects card in column
+//if applicable
+//select from bottom
+
+
+// if user  H O V E R S  over columns, 
+// outline all cards from bottom to where mouse is
+// col.addEventListener('mouseover', function(event){
+//     let hovered = event.target;
+
+//     if() {
+
+//     }
+// })
+
+
+// if user clicks on deck, flip top three cards over
+
+
+
+
+
+
+// when heartsF is dragged to, only ace of hearts can go there
+// clubs
+// diamonds
+// spades
+
+// when deck is cliked, turn top of array over to "dealSpace" pile
+
+
+
+
+
+
+
+
+/////////////////////   R E N D E R   /////////////////////

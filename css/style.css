@@ -1,60 +1,98 @@
 *, *:before, *:after {
     box-sizing: border-box;
 }
+
+html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
     display: flex;
     justify-content: center;
-    height: 100vh;
-    background-color: mistyrose
+    background-color: mistyrose;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
-
-
-#game {
-
-}
 
 #game-row1 {
     display: flex;
-    position: relative;
 }
 
 
 #deck {
     border-radius: 10px;
-    width: 100px;
+    margin: 1.6vmin 0;
 }
 
 #deck img {
     width: 15vmin;
 }
 
+#dealer {
+    display: flex;
+    flex-direction: row;
+}
 
-#discard {
-    border: 1px solid blue;
+#deal-space {
+    height: 18.2vmin;
+    width: 22.5vmin;
+    margin: 2vmin 2vmin 2vmin .5vmin;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.cardD {
+    border: .1vmin solid lightcyan;
     width: 13vmin;
-    height: 19vmin;
+    height: 18vmin;
+    background-color: floralwhite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0 .5vmin;
+    filter: drop-shadow(.1vmin .2vmin .2vmin grey);
+    cursor: pointer;
+}
+
+
+#cardD2 {
+    position: absolute;
+    left: 4vmin;
+}
+
+#cardD3 {
+    position: absolute;
+    left: 8vmin;
 }
 
 #foundation {
     display: flex;
     flex-direction: row;
-    background-color: aquamarine;
-    position: absolute;
-    top: 0;
-    right: 0;
+}
+
+.cardF {
+    border: .1vmin solid lightcyan;
+    width: 13vmin;
+    height: 18vmin;
+    background-color: floralwhite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: .5vmin;
 }
 
 #foundation div img{
     width: 13vmin;
-    padding: 3.3vmin 0;
-    margin: 2vmin;
-    background-color: turquoise;
+    padding: 3.2vmin 0;
+    margin: 2vmin 1vmin;
 }
 
 #game-row2 {
     display: flex;
-    padding-top: 20px;
+    padding-top: 35px;
 }
 
 #game-row2 div {
@@ -70,7 +108,12 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     margin: .5vmin;
-    filter: drop-shadow(.1vmin .2vmin .2vmin grey)
+    filter: drop-shadow(.1vmin .2vmin .2vmin grey);
+    cursor: pointer;
+}
+
+.card:hover {
+    filter: drop-shadow(.1vmin .3vmin .8vmin blueviolet  )
 }
 
 #card3, #card5, #card8, #card12, #card17, #card23 {
@@ -103,3 +146,30 @@ body {
     top: -90vmin;
 }
 
+
+.selected {
+    border: 2px solid darkred;
+    filter: drop-shadow(.1vmin .4vmin .6vmin purple)
+}
+
+
+
+
+
+@media only screen and (max-width: 700px) {
+    body{
+        margin: 0;
+    }
+    
+    #game-row1 {
+        flex-direction: column;
+    }
+
+    #dealer {
+        flex-direction: row;
+    }
+
+    #game-row2 {
+        padding-top: 10px;
+    }
+}
