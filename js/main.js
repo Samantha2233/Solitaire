@@ -325,18 +325,22 @@ var cards = document.getElementsByClassName('card');
 
 const column = document.getElementsByClassName('col');
 const deck = document.getElementById('deck');
+let deckImg = document.getElementById('deckImg');
 
 
 
 
 //////////////// S T A T E  V A R I A B L E S ////////////////
 const deckArr = [];
+const dealtArr = [];
 const dealSpace = document.getElementById('deal-space');
 
 const heartsF = document.getElementById('heartsF');
 const clubsF = document.getElementById('clubsF');
 const diamondsF = document.getElementById('diamondsF');;
 const spadesF = document.getElementById('spadesF');;
+
+
 
 
 
@@ -388,7 +392,7 @@ game.addEventListener('click', function(event) {
     //event target is 'clicked'
     let clicked = event.target
     //make it so columns cannot be clicked
-    if(clicked.className === "col") {
+    if(clicked.className === "col" || clicked.className === "unselectable") {
         return;
     };
     // toggle selected class too
@@ -414,19 +418,10 @@ game.addEventListener('click', function(event) {
 
 
 // if user clicks on deck, flip top three cards over
-
-
-
-
 deck.addEventListener('click', function() {
-    //grab divs for card imgs to be placed in
-    // let cardD1 = document.getElementById('cardD1');
-    // let cardD2 = document.getElementById('cardD2');
-    // let cardD3 = document.getElementById('cardD3');
-
-
     //pop card from deck array to be placed into 3 card divs
     i = 0;
+    var cardDs = document.querySelectorAll('.cardD');
     while(i < 3) {
         i++;
         cardID = "";
@@ -434,22 +429,37 @@ deck.addEventListener('click', function() {
         //grab a card from deck
         let newCard = deckArr.pop();
         console.log(newCard);
+
+        //save newly dealt cards into dealt arr
+        dealtArr.push(newCard);
+        console.log(dealtArr);
+
         //grab image from that card
         let newCardImg = `url(${newCard.img})`;
-        console.log(newCardImg);
         //apply image to cardD space
-
         let card = document.getElementById(`${cardID}`);
-
-        console.log(cardID);
         card.style.backgroundImage = newCardImg;
-        
-
-
-        console.log(i);
-        console.log(deckArr); 
     }
-    
+
+    //when deck runs out of cards, turn dealer pile over into deck again
+    if(deckArr.length === 0){
+        //change src of deckImg to reload img
+        deckImg.src = '../images/reload-deck.png';
+        //flip dealt array over
+        dealtArr.reverse();
+        // console.log(deckArr);
+        
+        //clear dealt pile
+        // cardDs.style.backgroundColor = "floralwhite";
+
+        // add all cards to deckArr
+        deckArr.push(...dealtArr);
+        
+        // console.log(dealtArr);
+        // console.log(deckArr);
+    } else {
+        deckImg.src = '../images/backs/red.svg';
+    }
 });
 
         
