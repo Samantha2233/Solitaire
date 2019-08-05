@@ -16,25 +16,25 @@
         <div id="game-row1" class="unselectable">
             <div id="dealer">
                 <div id="deck">
-                    <img id="deckImg" class="card" src="images/backs/red.svg" alt="deck">
+                    <img id="deckImg" src="images/backs/red.svg" alt="deck">
                 </div>
                 <div id="deal-space">
                     <div class="cardD" id="cardD1"></div>
                     <div class="cardD" id="cardD2"></div>
-                    <div class="cardD card" id="cardD3"></div>
+                    <div class="cardD" id="cardD3" draggable="true" ondragstart="dragHandler(event)"></div>
                 </div>
             </div>
             <div id="foundation">
-                <div id="heartsF">
+                <div id="heartsF" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
                     <img class="cardF" src="images/foundation/hearts.png" alt="hearts foundation">
                 </div>
-                <div id="clubsF">
+                <div id="clubsF" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
                     <img class="cardF" src="images/foundation/clubs.png" alt="clubs foundation">
                 </div>
-                <div id="diamondsF">
+                <div id="diamondsF" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
                     <img class="cardF" src="images/foundation/diamonds.png" alt="diamonds foundation">
                 </div>
-                <div id="spadesF">
+                <div id="spadesF" ondrop="dropHandler(event)" ondragover="dragoverHandler(event)">
                     <img class="cardF" src="images/foundation/spades.png" alt="spades foundation">
                 </div>
             </div>
@@ -42,29 +42,29 @@
 
         <div id="game-row2" class="unselectable">
             <div class="col">
-                <div class="card" id="card1"></div>
+                <div class="card" id="card1" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
             <div class="col">
                 <div class="card" id="card2"></div>
-                <div class="card" id="card3"></div>
+                <div class="card" id="card3" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
             <div class="col">
                 <div class="card" id="card4"></div>
                 <div class="card" id="card5"></div>
-                <div class="card" id="card6"></div>
+                <div class="card" id="card6" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
             <div class="col">
                 <div class="card" id="card7"></div>
                 <div class="card" id="card8"></div>
                 <div class="card" id="card9"></div>
-                <div class="card" id="card10"></div>
+                <div class="card" id="card10" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
             <div class="col">
                 <div class="card" id="card11"></div>
                 <div class="card" id="card12"></div>
                 <div class="card" id="card13"></div>
                 <div class="card" id="card14"></div>
-                <div class="card" id="card15"></div>
+                <div class="card" id="card15" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
             <div class="col">
                 <div class="card" id="card16"></div>
@@ -72,7 +72,7 @@
                 <div class="card" id="card18"></div>
                 <div class="card" id="card19"></div>
                 <div class="card" id="card20"></div>
-                <div class="card" id="card21"></div>
+                <div class="card" id="card21" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
             <div class="col">
                 <div class="card" id="card22"></div>
@@ -81,7 +81,7 @@
                 <div class="card" id="card25"></div>
                 <div class="card" id="card26"></div>
                 <div class="card" id="card27"></div>
-                <div class="card" id="card28"></div>
+                <div class="card" id="card28" draggable="true" ondragstart="dragHandler(event)"></div>
             </div>
         </div>
     </div>

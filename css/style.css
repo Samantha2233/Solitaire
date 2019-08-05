@@ -29,9 +29,25 @@ body {
 }
 
 #deck img {
-    width: 15vmin;
-    margin: .5vmin;
+    /* width: 15vmin;
+    margin: .5vmin; */
+    border: .1vmin solid lightcyan;
+    width: 13vmin;
+    height: 18vmin;
+    background-color: floralwhite;
+    background-size: contain;
+    background-repeat: no-repeat;
+    filter: drop-shadow(.1vmin .2vmin .2vmin grey);
+    cursor: pointer;
 }
+
+
+#deck img:hover {
+    filter: drop-shadow(.1vmin .3vmin .8vmin blueviolet  )
+} 
+
+
+
 
 #dealer {
     display: flex;
