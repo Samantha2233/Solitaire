@@ -380,6 +380,9 @@ const column = document.getElementsByClassName('col');
 const deck = document.getElementById('deck');
 let deckImg = document.getElementById('deckImg');
 let cardDs = document.getElementsByClassName('cardD');
+// let lastCardD = document.getElementById('cardD3');
+
+
 
 let lastCards = document.querySelectorAll('.card:last-child');
 
@@ -473,17 +476,7 @@ function init() {
 
 //------------ ------\\  S E L E C T  //---------------------
 
-game.addEventListener('click', function (event) {
-  // apply select class to cards that are clicked
-  //event target is 'clicked'
-  let clicked = event.target
-  //make it so columns cannot be clicked
-  if (clicked.className === "col" || clicked.className === "unselectable") {
-    return;
-  };
-  // toggle selected class too
-  clicked.classList.toggle("selected");
-});
+
 
 //if user selects card in column
 //if applicable
@@ -507,13 +500,13 @@ game.addEventListener('click', function (event) {
 
 
 deck.addEventListener('click', function () {
-  // if user clicks on deck, flip top three cards over
-  //pop card from deck array to be placed into 3 card divs
-  
   //set display of CardD s to block
   // cardDs.style.visibility = 'visible';
   // console.log(cardDs);
 
+
+  // if user clicks on deck, flip top three cards over
+  //pop card from deck array to be placed into 3 card divs
   i = 0;
   while (i < 3) {
     i++;
@@ -553,22 +546,47 @@ deck.addEventListener('click', function () {
 
 
 
-//////////////////   F U N C T I O N S  ///////////////////
+
+
+
+
+
+
 
 //--------------------\\  D R A G  //---------------------
+
+game.addEventListener('drag', function (event) {
+  // apply select class to cards that are clicked
+  //event target is 'clicked'
+  let clicked = event.target
+  //make it so columns cannot be clicked
+  if (clicked.className === "col" || clicked.className === "unselectable") {
+    return;
+  };
+  // toggle selected class too
+  clicked.classList.toggle("selected");
+});
+
+
+
+
+
+//add ability to drag last card from dealt array to foundation stacks
+// lastCardD.addEventListener('dragstart', dragStart);
+// lastCardD.addEventListener('dragend', dragEnd);
+// lastCardD.addEventListener('drag', function() {
+//   console.log('works?');
+// })
+
+
+
+
+
 //attatch event listeners to each lastCard in the lastCards nodeList object
 for(let lastCard of lastCards) {
   lastCard.addEventListener('dragstart', dragStart);
   lastCard.addEventListener('dragend', dragEnd);
 }
-
-
-
-
-
-
-
-
 
 
 //attach event listeners to drop zones in foundation stacks
@@ -592,13 +610,12 @@ function dragStart(e) {
 
 function dragEnd() {
   //set class back to original
+  console.log('end');
   this.className = 'card';
 }
 
 function dragOver(e) {
   e.preventDefault();
-  
-  
 }
 
 function dragEnter(e) {
@@ -664,19 +681,21 @@ function dragDrop(e) {
 
 
   
-  console.log(lastCardsArr);
-
  //update lastCardsArr 
   lastCards = document.querySelectorAll('.card:last-child');
   lastCardsArr = [];
   lastCardsArr = Array.from(lastCards);
 
-  console.log(lastCardsArr);
-  
-  
 
-  //Allow user to click on lastCard to flip card
+  
+  //Allow user to click on lastCard to flip card and make draggable to foundation stacks
   for(let lastCard of lastCardsArr) {
+
+    lastCard.setAttribute('draggable', true);
+
+    lastCard.addEventListener('dragstart', dragStart);
+    lastCard.addEventListener('dragend', dragEnd);
+
     lastCard.addEventListener('click', function( ){
       console.log('clicked!');
       // grab cardID from element
@@ -689,35 +708,16 @@ function dragDrop(e) {
       lastCard.style.backgroundImage = cardImg;
       console.log(lastCardID);
     });
+
   }
+
+
+
 }
 
 
 
-
-// lastCards.forEach(function(lastCard){
-  //   // grab cardID from element
-  //   let lastCardID = lastCard.id;
-
-  //   //find associative card object of last cards by shared cardID
-  //   var foundCardObj = cardsArr.find(x => x.id === lastCardID);
-
-  //   //save img property from foundCardObj
-  //   let cardImg = `url(${foundCardObj.img})`;
-    
-  //   //place images in card divs!
-  //   lastCard.style.backgroundImage = cardImg;
-  // })
-
-
-
-
-
-
-
-
-
-
+//////////////////   F U N C T I O N S  ///////////////////
 
 
 

@@ -77,15 +77,35 @@ body {
 }
 
 
-#cardD2 {
+
+
+
+
+
+#cardD1, #cardD4, #cardD7, #cardD10, #cardD13, #cardD16, #cardD19, #cardD22 {
+    position: absolute;
+    left: 0;
+}
+
+#cardD2, #cardD5, #cardD8, #cardD11, #cardD14, #cardD17, #cardD20, #cardD23 {
     position: absolute;
     left: 4vmin;
 }
 
-#cardD3 {
+#cardD3, #cardD6, #cardD9, #cardD12, #cardD15, #cardD18, #cardD21, #cardD24 {
     position: absolute;
     left: 8vmin;
 }
+
+
+
+
+
+
+
+
+
+
 
 #foundation {
     position: relative;
