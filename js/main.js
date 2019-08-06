@@ -384,6 +384,13 @@ let deckImg = document.getElementById('deckImg');
 let lastCards = document.querySelectorAll('.card:last-child');
 
 
+const foundations = document.querySelectorAll('.cardF')
+const heartsF = document.getElementById('heartsF');
+const clubsF = document.getElementById('clubsF');
+const diamondsF = document.getElementById('diamondsF');
+const spadesF = document.getElementById('spadesF');
+
+
 
 
 
@@ -391,12 +398,10 @@ let lastCards = document.querySelectorAll('.card:last-child');
 //////////////// S T A T E  V A R I A B L E S ////////////////
 const deckArr = [];
 let dealtArr = [];
-const dealSpace = document.getElementById('deal-space');
 
-const heartsF = document.getElementById('heartsF');
-const clubsF = document.getElementById('clubsF');
-const diamondsF = document.getElementById('diamondsF');
-const spadesF = document.getElementById('spadesF');
+
+
+
 
 
 
@@ -551,17 +556,59 @@ deck.addEventListener('click', function () {
 //////////////////   F U N C T I O N S  ///////////////////
 
 //--------------------\\  D R A G  //---------------------
+//attatch event listeners to each lastCard in the lastCards nodeList object
+for(let lastCard of lastCards) {
+  lastCard.addEventListener('dragstart', dragStart);
+  lastCard.addEventListener('dragend', dragEnd);
+}
 
-// function dragHandler(event) {
-//     event.preventDefault();
-//     event.dataTransfer.dropEffect = "move";
-// };
+//attach event listeners to foundation stacks
+for(let foundation of foundations) {
+  foundation.addEventListener('dragover', dragOver);
+  foundation.addEventListener('dragenter', dragEnter);
+  foundation.addEventListener('dragleave', dragLeave);
+  foundation.addEventListener('drop', dragDrop);
+}
 
-// function dropHandler(event) {
-//     event.preventDefault();
-//     var data = event.dataTransfer.getData('');
-//     event.target.appendChild(document.ElementById(data));
-// }
+//drag functions
+function dragStart(e) {
+  //capture data (cardID)
+  e.dataTransfer.setData('srcId', e.target.id);
+  //add selected class to dragged card
+  this.className += ' selected';
+  //add invisible class to create illusion of moving actual card
+  setTimeout(() => this.className = 'invisible'), 0;
+}
+
+function dragEnd() {
+  //set class back to original
+  this.className = 'card';
+}
+
+function dragOver(e) {
+  e.preventDefault();
+}
+
+function dragEnter(e) {
+  e.preventDefault();
+  this.className += ' hovered';
+}
+
+function dragLeave() {
+  this.className = "cardF";
+}
+
+function dragDrop(e) {
+  this.className = "cardF";
+  let target = e.target;
+  let cardID = e.dataTransfer.getData('srcId');
+  console.log(cardID);
+  
+  target.appendChild(document.getElementById(cardID));
+  console.log(target);
+}
+
+
 
 
 
@@ -571,16 +618,6 @@ deck.addEventListener('click', function () {
 // clubs
 // diamonds
 // spades
-
-// when deck is cliked, turn top of array over to "dealSpace" pile
-
-
-
-
-
-
-
-
 
 
 

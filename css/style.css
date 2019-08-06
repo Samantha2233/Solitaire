@@ -118,6 +118,10 @@ body {
 
 .col {
     margin: .5vmin;
+    width: 13vmin;
+    height:  18vmin;
+    background-color: floralwhite;
+    border: .1vmin solid lightcyan;
 }
 
 .card {
@@ -168,9 +172,16 @@ body {
 
 .selected {
     border: 2px solid darkred;
-    filter: drop-shadow(.1vmin .4vmin .6vmin purple)
+    filter: drop-shadow(.1vmin .4vmin .6vmin purple);
 }
 
+.hovered {
+    filter: drop-shadow(.1vmin .3vmin .8vmin blueviolet);
+}
+
+.invisible {
+    display: none;
+}
 
 
 
