@@ -88,8 +88,8 @@ body {
 }
 
 #foundation {
-    display: flex;
-    flex-direction: row;
+    position: relative;
+    width: 75%;
 }
 
 .cardF {
@@ -115,6 +115,31 @@ body {
     position: absolute;
     margin: 2vmin 1vmin;
 }
+
+.dropped {
+    top: 0;
+}
+
+#heartsF {
+    position: absolute;
+    left: 3%;
+}
+
+#clubsF {
+    position: absolute;
+    left: 28%
+}
+
+#diamondsF {
+    position: absolute;
+    left: 53%;
+}
+
+#spadesF {
+    position: absolute;
+    left: 78%;
+}
+
 
 #game-row2 {
     display: flex;

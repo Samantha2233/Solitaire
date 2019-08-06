@@ -382,11 +382,9 @@ let deckImg = document.getElementById('deckImg');
 let cardDs = document.getElementsByClassName('cardD');
 
 let lastCards = document.querySelectorAll('.card:last-child');
-
-
-const foundations = document.querySelectorAll('.cardF');
 const dropzones = document.querySelectorAll('.dropzone');
 
+// const foundations = document.querySelectorAll('.cardF');
 
 
 const heartsF = document.getElementById('heartsF');
@@ -564,12 +562,13 @@ for(let lastCard of lastCards) {
   lastCard.addEventListener('dragend', dragEnd);
 }
 
-//attach event listeners to foundation stacks
+//attach event listeners to drop zones in foundation stacks
 for(let dropzone of dropzones) {
   dropzone.addEventListener('dragover', dragOver);
   dropzone.addEventListener('dragenter', dragEnter);
   dropzone.addEventListener('dragleave', dragLeave);
   dropzone.addEventListener('drop', dragDrop);
+
 }
 
 //drag functions
@@ -600,14 +599,20 @@ function dragLeave() {
   this.className = "dropzone";
 }
 
+
+
+
+// let childCards = querySelectorAll('.dropzone .card');
+
+
 function dragDrop(e) {
+  //unhighlighy
   this.className = "dropzone";
-  let target = e.target;
+
   let cardID = e.dataTransfer.getData('srcId');
-  console.log(cardID);
-  
-  target.appendChild(document.getElementById(cardID));
-  console.log(target);
+  let cardEl = document.getElementById(cardID);
+  cardEl.style.top = 0;
+  this.appendChild(cardEl);
 }
 
 
