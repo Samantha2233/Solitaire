@@ -64,6 +64,7 @@ body {
 }
 
 .cardD {
+    visibility: visible;
     border: .1vmin solid lightcyan;
     width: 13vmin;
     height: 18vmin;
@@ -104,6 +105,14 @@ body {
 #foundation div img{
     width: 13vmin;
     padding: 3.2vmin 0;
+    margin: 2vmin 1vmin;
+}
+
+.dropzone {
+    z-index: 10;
+    width: 13vmin;
+    height: 18vmin;
+    position: absolute;
     margin: 2vmin 1vmin;
 }
 

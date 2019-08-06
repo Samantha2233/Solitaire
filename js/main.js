@@ -369,7 +369,6 @@ const cardsArr = [
   }
 ]
 
-// TODO? May want to add an ID property to each card to be filled in the init loop
 
 //constants of soundbites, card flipping, celebratory winnning sound
 
@@ -380,11 +379,16 @@ var cards = document.getElementsByClassName('card');
 const column = document.getElementsByClassName('col');
 const deck = document.getElementById('deck');
 let deckImg = document.getElementById('deckImg');
+let cardDs = document.getElementsByClassName('cardD');
 
 let lastCards = document.querySelectorAll('.card:last-child');
 
 
-const foundations = document.querySelectorAll('.cardF')
+const foundations = document.querySelectorAll('.cardF');
+const dropzones = document.querySelectorAll('.dropzone');
+
+
+
 const heartsF = document.getElementById('heartsF');
 const clubsF = document.getElementById('clubsF');
 const diamondsF = document.getElementById('diamondsF');
@@ -398,12 +402,6 @@ const spadesF = document.getElementById('spadesF');
 //////////////// S T A T E  V A R I A B L E S ////////////////
 const deckArr = [];
 let dealtArr = [];
-
-
-
-
-
-
 
 
 
@@ -514,8 +512,12 @@ game.addEventListener('click', function (event) {
 deck.addEventListener('click', function () {
   // if user clicks on deck, flip top three cards over
   //pop card from deck array to be placed into 3 card divs
+  
+  //set display of CardD s to block
+  // cardDs.style.visibility = 'visible';
+  // console.log(cardDs);
+
   i = 0;
-  var cardDs = document.querySelectorAll('.cardD');
   while (i < 3) {
     i++;
     cardID = "";
@@ -563,11 +565,11 @@ for(let lastCard of lastCards) {
 }
 
 //attach event listeners to foundation stacks
-for(let foundation of foundations) {
-  foundation.addEventListener('dragover', dragOver);
-  foundation.addEventListener('dragenter', dragEnter);
-  foundation.addEventListener('dragleave', dragLeave);
-  foundation.addEventListener('drop', dragDrop);
+for(let dropzone of dropzones) {
+  dropzone.addEventListener('dragover', dragOver);
+  dropzone.addEventListener('dragenter', dragEnter);
+  dropzone.addEventListener('dragleave', dragLeave);
+  dropzone.addEventListener('drop', dragDrop);
 }
 
 //drag functions
@@ -595,11 +597,11 @@ function dragEnter(e) {
 }
 
 function dragLeave() {
-  this.className = "cardF";
+  this.className = "dropzone";
 }
 
 function dragDrop(e) {
-  this.className = "cardF";
+  this.className = "dropzone";
   let target = e.target;
   let cardID = e.dataTransfer.getData('srcId');
   console.log(cardID);
