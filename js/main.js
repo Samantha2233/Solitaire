@@ -382,15 +382,8 @@ let deckImg = document.getElementById('deckImg');
 let cardDs = document.getElementsByClassName('cardD');
 
 let lastCards = document.querySelectorAll('.card:last-child');
+
 const dropzones = document.querySelectorAll('.dropzone');
-// const foundations = document.querySelectorAll('.cardF');
-
-
-// const heartsF = document.querySelectorAll('#hearts-drop');
-// const clubsF = document.getElementById('#clubs-drop');
-// const diamondsF = document.getElementById('#diamonds-drop');
-// const spadesF = document.getElementById('#spades-drop');
-
 
 
 
@@ -399,6 +392,8 @@ const dropzones = document.querySelectorAll('.dropzone');
 //////////////// S T A T E  V A R I A B L E S ////////////////
 const deckArr = [];
 let dealtArr = [];
+
+let lastCardsArr = [];
 
 const heartsArr = [];
 const clubsArr = [];
@@ -557,6 +552,7 @@ deck.addEventListener('click', function () {
 });
 
 
+
 //////////////////   F U N C T I O N S  ///////////////////
 
 //--------------------\\  D R A G  //---------------------
@@ -565,6 +561,15 @@ for(let lastCard of lastCards) {
   lastCard.addEventListener('dragstart', dragStart);
   lastCard.addEventListener('dragend', dragEnd);
 }
+
+
+
+
+
+
+
+
+
 
 //attach event listeners to drop zones in foundation stacks
 for(let dropzone of dropzones) {
@@ -658,13 +663,42 @@ function dragDrop(e) {
   };
 
 
-
   
-  // console.log(this.id);
+  console.log(lastCardsArr);
 
-  // lastCards.forEach(function(lastCard){
+ //update lastCardsArr 
+  lastCards = document.querySelectorAll('.card:last-child');
+  lastCardsArr = [];
+  lastCardsArr = Array.from(lastCards);
+
+  console.log(lastCardsArr);
+  
+  
+
+  //Allow user to click on lastCard to flip card
+  for(let lastCard of lastCardsArr) {
+    lastCard.addEventListener('click', function( ){
+      console.log('clicked!');
+      // grab cardID from element
+      let lastCardID = lastCard.id;
+      //find associative card object of last cards by shared cardID
+      var foundCardObj = cardsArr.find(x => x.id === lastCardID);
+      //save img property from foundCardObj
+      let cardImg = `url(${foundCardObj.img})`;
+      //place images in card divs!
+      lastCard.style.backgroundImage = cardImg;
+      console.log(lastCardID);
+    });
+  }
+}
+
+
+
+
+// lastCards.forEach(function(lastCard){
   //   // grab cardID from element
   //   let lastCardID = lastCard.id;
+
   //   //find associative card object of last cards by shared cardID
   //   var foundCardObj = cardsArr.find(x => x.id === lastCardID);
 
@@ -674,17 +708,9 @@ function dragDrop(e) {
   //   //place images in card divs!
   //   lastCard.style.backgroundImage = cardImg;
   // })
-  
-}
 
 
 
-
-
-// when heartsF is dragged to, only ace of hearts can go there
-// clubs
-// diamonds
-// spades
 
 
 
