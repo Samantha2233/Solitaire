@@ -383,14 +383,13 @@ let cardDs = document.getElementsByClassName('cardD');
 
 let lastCards = document.querySelectorAll('.card:last-child');
 const dropzones = document.querySelectorAll('.dropzone');
-
 // const foundations = document.querySelectorAll('.cardF');
 
 
-const heartsF = document.getElementById('heartsF');
-const clubsF = document.getElementById('clubsF');
-const diamondsF = document.getElementById('diamondsF');
-const spadesF = document.getElementById('spadesF');
+// const heartsF = document.querySelectorAll('#hearts-drop');
+// const clubsF = document.getElementById('#clubs-drop');
+// const diamondsF = document.getElementById('#diamonds-drop');
+// const spadesF = document.getElementById('#spades-drop');
 
 
 
@@ -400,6 +399,11 @@ const spadesF = document.getElementById('spadesF');
 //////////////// S T A T E  V A R I A B L E S ////////////////
 const deckArr = [];
 let dealtArr = [];
+
+const heartsArr = [];
+const clubsArr = [];
+const diamondsArr = [];
+const spadesArr = [];
 
 
 
@@ -456,7 +460,7 @@ function init() {
     lastCard.style.backgroundImage = cardImg;
   })
 
-  render();
+  // render();
 }
 
 
@@ -588,10 +592,13 @@ function dragEnd() {
 
 function dragOver(e) {
   e.preventDefault();
+  
+  
 }
 
 function dragEnter(e) {
   e.preventDefault();
+  console.log("hover");
   this.className += ' hovered';
 }
 
@@ -600,22 +607,75 @@ function dragLeave() {
 }
 
 
-
-
-// let childCards = querySelectorAll('.dropzone .card');
-
-
 function dragDrop(e) {
-  //unhighlighy
+  //unhighlight dropzone
   this.className = "dropzone";
 
   let cardID = e.dataTransfer.getData('srcId');
   let cardEl = document.getElementById(cardID);
-  cardEl.style.top = 0;
-  this.appendChild(cardEl);
+
+  //access value of card to establish whether applicable
+  var foundCardObj = cardsArr.find(x => x.id === cardID);
+  
+  if(foundCardObj.suit === 'heart') {
+    console.log('hearts!');
+    if(foundCardObj.value === (heartsArr.length + 1)) {
+      cardEl.style.top = 0;
+      this.appendChild(cardEl);
+      heartsArr.push(cardEl);
+      console.log(heartsArr);
+    }
+  };
+
+  if (foundCardObj.suit === 'club') {
+  console.log('clubs!');
+    if(foundCardObj.value === (clubsArr.length + 1)) {
+      cardEl.style.top = 0;
+      this.appendChild(cardEl);
+      clubsArr.push(cardEl);
+      console.log(clubsArr);
+    }
+  };
+    
+  if (foundCardObj.suit === 'diamond') {
+  console.log('diamonds!');
+    if(foundCardObj.value === (diamondsArr.length + 1)) {
+      cardEl.style.top = 0;
+      this.appendChild(cardEl);
+      diamondsArr.push(cardEl);
+      console.log(diamondsArr);
+    }
+  };
+
+  if (foundCardObj.suit === 'spade') {
+  console.log('spades');
+    if(foundCardObj.value === (spadesArr.length + 1)) {
+      cardEl.style.top = 0;
+      this.appendChild(cardEl);
+      spadesArr.push(cardEl);
+      console.log(spadesArr);
+    } 
+  };
+
+
+
+  
+  // console.log(this.id);
+
+  // lastCards.forEach(function(lastCard){
+  //   // grab cardID from element
+  //   let lastCardID = lastCard.id;
+  //   //find associative card object of last cards by shared cardID
+  //   var foundCardObj = cardsArr.find(x => x.id === lastCardID);
+
+  //   //save img property from foundCardObj
+  //   let cardImg = `url(${foundCardObj.img})`;
+    
+  //   //place images in card divs!
+  //   lastCard.style.backgroundImage = cardImg;
+  // })
+  
 }
-
-
 
 
 
@@ -638,6 +698,6 @@ function dragDrop(e) {
 /////////////////////   R E N D E R   /////////////////////
 
 //add draggable attr and onstartdrag global event handler to lastCards of each column
-function render() {
+// function render() {
 
-}
+// }
