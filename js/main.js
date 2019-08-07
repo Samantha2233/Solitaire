@@ -384,12 +384,6 @@ const column = document.getElementsByClassName('col');
 var cards = document.getElementsByClassName('card');
 let lastCards = document.querySelectorAll('.card:last-child');
 
-// let cardDs = document.getElementsByClassName('cardD');
-// let lastCardD = document.getElementById('cardD3');
-
-
-
-
 
 
 
@@ -441,8 +435,7 @@ function init() {
       i += 1;
       var cardID = "";
       cardID = 'card' + i;
-      // console.log(cardObj);
-      let card = document.getElementById(`${cardID}`);
+      // let card = document.getElementById(`${cardID}`);
       cardObj.id = cardID;
       deckArr.push(cardObj);
     } else if (i === 52) {
@@ -489,9 +482,9 @@ deck.addEventListener('click', function () {
   i = 0;
   while (i < 3) {
     i++;
-    // //grab a card from deck
+    //grab a card from deck
     let newCard = deckArr.pop();
-    // //save newly dealt cards into dealt arr
+    //save newly dealt cards into dealt arr
     dealtArr.push(newCard);
     //grab image from that card
     let newCardImg = `url(${newCard.img})`;
@@ -528,27 +521,41 @@ deck.addEventListener('click', function () {
     deckImg.src = 'images/reload-deck.png';
     //flip dealtArr over
     dealtArr.reverse();
+
+
+    console.log(dealtArr);
+    //remove .right .center and .left class from all cards in the dealtArr
+    dealtArr.forEach(function(cardObj){
+      cardID = cardObj.id;
+      card = document.getElementById(`${cardID}`)
+      card.classList.remove('right');
+      card.classList.remove('center');
+      card.classList.remove('left');
+      card.style.display = 'none';
+    });
     
+    
+    console.log(dealtArr);
+
     // add all cards to deckArr
     deckArr.push(...dealtArr);
-
-    //erase cards from dealt stack 
-    // card.style.display = 'none';
-
-
+    
     //reset dealt z-index
     dealtZIndex = 0;
 
     dealtArr = [];
+
+
   } else {
     deckImg.src = 'images/backs/red.svg';
-  }
+  };
   
 });
 
 
 
-function addNewCard() {
+function addNewCard(e) {
+  e.preventDefault();
   console.log("add new card");
 };
 
@@ -589,7 +596,6 @@ for(let dropzone of dropzones) {
   dropzone.addEventListener('dragenter', dragEnter);
   dropzone.addEventListener('dragleave', dragLeave);
   dropzone.addEventListener('drop', dragDrop);
-
 }
 
 
@@ -695,7 +701,7 @@ function dragDrop(e) {
     lastCard.addEventListener('dragstart', dragStart);
     lastCard.addEventListener('dragend', dragEnd);
 
-    lastCard.addEventListener('click', function( ){
+    lastCard.addEventListener('click', function(){
       // grab cardID from element
       let lastCardID = lastCard.id;
       //find associative card object of last cards by shared cardID
