@@ -373,20 +373,21 @@ const cardsArr = [
 //constants of soundbites, card flipping, celebratory winnning sound
 
 //////////////  G L O B A L  V A R I A B L E S  ////////////////
-const game = document.getElementById('game-row2');
-var cards = document.getElementsByClassName('card');
-
-const column = document.getElementsByClassName('col');
 const deck = document.getElementById('deck');
 let deckImg = document.getElementById('deckImg');
-let cardDs = document.getElementsByClassName('cardD');
+
+
+const dropzones = document.querySelectorAll('.dropzone');
+
+const game = document.getElementById('game-row2');
+const column = document.getElementsByClassName('col');
+var cards = document.getElementsByClassName('card');
+let lastCards = document.querySelectorAll('.card:last-child');
+
+// let cardDs = document.getElementsByClassName('cardD');
 // let lastCardD = document.getElementById('cardD3');
 
 
-
-let lastCards = document.querySelectorAll('.card:last-child');
-
-const dropzones = document.querySelectorAll('.dropzone');
 
 
 
@@ -395,14 +396,15 @@ const dropzones = document.querySelectorAll('.dropzone');
 //////////////// S T A T E  V A R I A B L E S ////////////////
 const deckArr = [];
 let dealtArr = [];
-
-let lastCardsArr = [];
+let dealtZIndex = 0;
+let thirdDealt = '';
 
 const heartsArr = [];
 const clubsArr = [];
 const diamondsArr = [];
 const spadesArr = [];
 
+let lastCardsArr = [];
 
 
 
@@ -437,35 +439,30 @@ function init() {
       //images 28 - 54 go to #deck / deckArr
     } else if (i >= 28) {
       i += 1;
+      var cardID = "";
+      cardID = 'card' + i;
+      // console.log(cardObj);
+      let card = document.getElementById(`${cardID}`);
+      cardObj.id = cardID;
       deckArr.push(cardObj);
     } else if (i === 52) {
       return;
     }
   });
 
- 
+
 //use ID to access object and grab img 
   lastCards.forEach(function(lastCard){
     // grab cardID from element
     let lastCardID = lastCard.id;
     //find associative card object of last cards by shared cardID
     var foundCardObj = cardsArr.find(x => x.id === lastCardID);
-
     //save img property from foundCardObj
     let cardImg = `url(${foundCardObj.img})`;
-    
     //place images in card divs!
     lastCard.style.backgroundImage = cardImg;
   })
-
-  // render();
 }
-
-
-
-
-
-
 
 
 
@@ -474,25 +471,12 @@ function init() {
 /////////////////   &   F U N C T I O N S  ///////////////////
 
 
-//------------ ------\\  S E L E C T  //---------------------
-
-
-
-//if user selects card in column
-//if applicable
-//select from bottom
-
-
 //-------------------\\  H O V E R  //---------------------
 
 // if user  H O V E R S  over columns, 
 // outline all cards from bottom to where mouse is
 // col.addEventListener('mouseover', function(event){
 //     let hovered = event.target;
-
-//     if() {
-
-//     }
 // })
 
 
@@ -500,53 +484,66 @@ function init() {
 
 
 deck.addEventListener('click', function () {
-  //set display of CardD s to block
-  // cardDs.style.visibility = 'visible';
-  // console.log(cardDs);
-
-
   // if user clicks on deck, flip top three cards over
   //pop card from deck array to be placed into 3 card divs
   i = 0;
   while (i < 3) {
     i++;
-    cardID = "";
-    cardID = 'cardD' + i;
-    //grab a card from deck
+    // //grab a card from deck
     let newCard = deckArr.pop();
-    // console.log(newCard);
-
-    //save newly dealt cards into dealt arr
+    // //save newly dealt cards into dealt arr
     dealtArr.push(newCard);
-    // console.log(dealtArr);
-
     //grab image from that card
     let newCardImg = `url(${newCard.img})`;
+    let cardID = newCard.id;
     //apply image to cardD space
     let card = document.getElementById(`${cardID}`);
+    //apply image to card 
     card.style.backgroundImage = newCardImg;
-    // console.log(deckArr);
+    card.style.display = 'block';
+    card.style.zIndex = dealtZIndex;
+    
+    //add class to card and set z-index
+    if(i === 1) {
+      dealtZIndex += 1;
+      card.classList.add('left');
+    } else if (i === 2) {
+      dealtZIndex += 1;
+      card.classList.add('center');
+    } else if (i === 3) {
+      dealtZIndex += 1;
+      card.classList.add('right');
+      thirdDealt = document.getElementById(`${cardID}`);
+      thirdDealt.setAttribute('draggable', true);
+      thirdDealt.addEventListener('dragstart', dragStart);
+      thirdDealt.addEventListener('dragend', dragEnd);
+      console.log(thirdDealt);
+    };
   };
-
-
-
+  
+  
+  
   //when deck runs out of cards, turn dealer pile over into deck again
   if (deckArr.length === 0) {
     //change src of deckImg to reload img
     deckImg.src = '../images/reload-deck.png';
     //flip dealtArr over
     dealtArr.reverse();
+    
     // add all cards to deckArr
     deckArr.push(...dealtArr);
+
+    //erase cards from dealt stack 
+    card.style.display = 'none';
+    //reset dealt z-index
+    dealtZIndex = 0;
+
     dealtArr = [];
   } else {
     deckImg.src = '../images/backs/red.svg';
   }
+  
 });
-
-
-
-
 
 
 
@@ -555,10 +552,13 @@ deck.addEventListener('click', function () {
 
 //--------------------\\  D R A G  //---------------------
 
+
+
+
 game.addEventListener('drag', function (event) {
   // apply select class to cards that are clicked
   //event target is 'clicked'
-  let clicked = event.target
+  let clicked = event.target;
   //make it so columns cannot be clicked
   if (clicked.className === "col" || clicked.className === "unselectable") {
     return;
@@ -567,18 +567,9 @@ game.addEventListener('drag', function (event) {
   clicked.classList.toggle("selected");
 });
 
-
-
-
-
-//add ability to drag last card from dealt array to foundation stacks
-// lastCardD.addEventListener('dragstart', dragStart);
-// lastCardD.addEventListener('dragend', dragEnd);
-// lastCardD.addEventListener('drag', function() {
-//   console.log('works?');
-// })
-
-
+  
+  
+  
 
 
 
@@ -610,7 +601,7 @@ function dragStart(e) {
 
 function dragEnd() {
   //set class back to original
-  console.log('end');
+  // console.log('end');
   this.className = 'card';
 }
 
@@ -643,6 +634,7 @@ function dragDrop(e) {
     console.log('hearts!');
     if(foundCardObj.value === (heartsArr.length + 1)) {
       cardEl.style.top = 0;
+      cardEl.style.left = 0;
       this.appendChild(cardEl);
       heartsArr.push(cardEl);
       console.log(heartsArr);
@@ -653,6 +645,7 @@ function dragDrop(e) {
   console.log('clubs!');
     if(foundCardObj.value === (clubsArr.length + 1)) {
       cardEl.style.top = 0;
+      cardEl.style.left = 0;
       this.appendChild(cardEl);
       clubsArr.push(cardEl);
       console.log(clubsArr);
@@ -663,6 +656,7 @@ function dragDrop(e) {
   console.log('diamonds!');
     if(foundCardObj.value === (diamondsArr.length + 1)) {
       cardEl.style.top = 0;
+      cardEl.style.left = 0;
       this.appendChild(cardEl);
       diamondsArr.push(cardEl);
       console.log(diamondsArr);
@@ -673,6 +667,7 @@ function dragDrop(e) {
   console.log('spades');
     if(foundCardObj.value === (spadesArr.length + 1)) {
       cardEl.style.top = 0;
+      cardEl.style.left = 0;
       this.appendChild(cardEl);
       spadesArr.push(cardEl);
       console.log(spadesArr);
@@ -687,7 +682,8 @@ function dragDrop(e) {
   lastCardsArr = Array.from(lastCards);
 
 
-  
+
+
   //Allow user to click on lastCard to flip card and make draggable to foundation stacks
   for(let lastCard of lastCardsArr) {
 
@@ -708,22 +704,5 @@ function dragDrop(e) {
       lastCard.style.backgroundImage = cardImg;
       console.log(lastCardID);
     });
-
   }
-
-
-
 }
-
-
-
-//////////////////   F U N C T I O N S  ///////////////////
-
-
-
-/////////////////////   R E N D E R   /////////////////////
-
-//add draggable attr and onstartdrag global event handler to lastCards of each column
-// function render() {
-
-// }

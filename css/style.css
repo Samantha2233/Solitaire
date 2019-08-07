@@ -81,21 +81,38 @@ body {
 
 
 
-
-#cardD1, #cardD4, #cardD7, #cardD10, #cardD13, #cardD16, #cardD19, #cardD22 {
+.left {
+    width: 13vmin;
+    height: 18vmin;
     position: absolute;
     left: 0;
+    /* z-index: 1; */
 }
 
-#cardD2, #cardD5, #cardD8, #cardD11, #cardD14, #cardD17, #cardD20, #cardD23 {
+
+.center {
+    width: 13vmin;
+    height: 18vmin;
     position: absolute;
     left: 4vmin;
+    /* z-index: 2; */
 }
 
-#cardD3, #cardD6, #cardD9, #cardD12, #cardD15, #cardD18, #cardD21, #cardD24 {
+.right{
+    width: 13vmin;
+    height: 18vmin;
     position: absolute;
     left: 8vmin;
+    /* z-index: 3; */
 }
+    
+
+
+.cardD {
+    display: none;
+}
+
+
 
 
 
@@ -137,6 +154,7 @@ body {
 }
 
 .dropped {
+    position: absolute;
     top: 0;
 }
 
