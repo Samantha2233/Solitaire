@@ -511,16 +511,16 @@ deck.addEventListener('click', function () {
       dealtZIndex += 1;
       card.classList.add('center');
     } else if (i === 3) {
+      console.log('HELLLOOOOOOO')
       dealtZIndex += 1;
       card.classList.add('right');
       thirdDealt = document.getElementById(`${cardID}`);
       thirdDealt.setAttribute('draggable', true);
       thirdDealt.addEventListener('dragstart', dragStart);
       thirdDealt.addEventListener('dragend', dragEnd);
-      console.log(thirdDealt);
+      thirdDealt.addEventListener('drop', addNewCard);
     };
   };
-  
   
   
   //when deck runs out of cards, turn dealer pile over into deck again
@@ -547,7 +547,9 @@ deck.addEventListener('click', function () {
 
 
 
-
+function addNewCard() {
+  console.log("add new card");
+};
 
 
 //--------------------\\  D R A G  //---------------------
@@ -589,6 +591,9 @@ for(let dropzone of dropzones) {
 
 }
 
+
+
+
 //drag functions
 function dragStart(e) {
   //capture data (cardID)
@@ -611,7 +616,7 @@ function dragOver(e) {
 
 function dragEnter(e) {
   e.preventDefault();
-  console.log("hover");
+  // console.log("hover");
   this.className += ' hovered';
 }
 
@@ -631,46 +636,43 @@ function dragDrop(e) {
   var foundCardObj = cardsArr.find(x => x.id === cardID);
   
   if(foundCardObj.suit === 'heart') {
-    console.log('hearts!');
     if(foundCardObj.value === (heartsArr.length + 1)) {
       cardEl.style.top = 0;
       cardEl.style.left = 0;
+      cardEl.style.zIndex = '0';
       this.appendChild(cardEl);
       heartsArr.push(cardEl);
-      console.log(heartsArr);
+
     }
   };
 
   if (foundCardObj.suit === 'club') {
-  console.log('clubs!');
     if(foundCardObj.value === (clubsArr.length + 1)) {
       cardEl.style.top = 0;
       cardEl.style.left = 0;
+      cardEl.style.zIndex = '0';
       this.appendChild(cardEl);
       clubsArr.push(cardEl);
-      console.log(clubsArr);
     }
   };
     
   if (foundCardObj.suit === 'diamond') {
-  console.log('diamonds!');
     if(foundCardObj.value === (diamondsArr.length + 1)) {
       cardEl.style.top = 0;
       cardEl.style.left = 0;
+      cardEl.style.zIndex = '0';
       this.appendChild(cardEl);
       diamondsArr.push(cardEl);
-      console.log(diamondsArr);
     }
   };
 
   if (foundCardObj.suit === 'spade') {
-  console.log('spades');
     if(foundCardObj.value === (spadesArr.length + 1)) {
       cardEl.style.top = 0;
       cardEl.style.left = 0;
+      cardEl.style.zIndex = '0';
       this.appendChild(cardEl);
       spadesArr.push(cardEl);
-      console.log(spadesArr);
     } 
   };
 
@@ -693,7 +695,6 @@ function dragDrop(e) {
     lastCard.addEventListener('dragend', dragEnd);
 
     lastCard.addEventListener('click', function( ){
-      console.log('clicked!');
       // grab cardID from element
       let lastCardID = lastCard.id;
       //find associative card object of last cards by shared cardID
@@ -702,7 +703,6 @@ function dragDrop(e) {
       let cardImg = `url(${foundCardObj.img})`;
       //place images in card divs!
       lastCard.style.backgroundImage = cardImg;
-      console.log(lastCardID);
     });
   }
 }
