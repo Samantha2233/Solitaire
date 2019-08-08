@@ -392,6 +392,7 @@ const deckArr = [];
 let dealtArr = [];
 let dealtZIndex = 0;
 let thirdDealt = '';
+let secondDealt = '';
 
 const heartsArr = [];
 const clubsArr = [];
@@ -483,6 +484,7 @@ deck.addEventListener('click', function () {
   while (i < 3) {
     i++;
     //grab a card from deck
+    console.log(deckArr);
     let newCard = deckArr.pop();
     //save newly dealt cards into dealt arr
     dealtArr.push(newCard);
@@ -500,9 +502,11 @@ deck.addEventListener('click', function () {
     if(i === 1) {
       dealtZIndex += 1;
       card.classList.add('left');
+      firstDealt = document.getElementById(`${cardID}`);
     } else if (i === 2) {
       dealtZIndex += 1;
       card.classList.add('center');
+      secondDealt = document.getElementById(`${cardID}`);
     } else if (i === 3) {
       dealtZIndex += 1;
       card.classList.add('right');
@@ -510,7 +514,6 @@ deck.addEventListener('click', function () {
       thirdDealt.setAttribute('draggable', true);
       thirdDealt.addEventListener('dragstart', dragStart);
       thirdDealt.addEventListener('dragend', dragEnd);
-      thirdDealt.addEventListener('drop', addNewCard);
     };
   };
   
@@ -522,6 +525,8 @@ deck.addEventListener('click', function () {
     //flip dealtArr over
     dealtArr.reverse();
 
+    // add all cards to deckArr
+    deckArr.push(...dealtArr);
 
     console.log(dealtArr);
     //remove .right .center and .left class from all cards in the dealtArr
@@ -535,17 +540,9 @@ deck.addEventListener('click', function () {
     });
     
     
-    console.log(dealtArr);
-
-    // add all cards to deckArr
-    deckArr.push(...dealtArr);
-    
     //reset dealt z-index
     dealtZIndex = 0;
-
     dealtArr = [];
-
-
   } else {
     deckImg.src = 'images/backs/red.svg';
   };
@@ -554,10 +551,93 @@ deck.addEventListener('click', function () {
 
 
 
-function addNewCard(e) {
-  e.preventDefault();
-  console.log("add new card");
+document.addEventListener('drop', function(event){
+  event.preventDefault();
+  //if cardID > 28, it is from the deck / dealt cards. Therefore, we need a new card to be dealt
+  if(event.target.className === "dropzone") {
+    cardID = event.dataTransfer.getData('srcId');
+    ID = cardID.slice(4,6);
+    console.log(ID);
+    console.log(dealtArr);
+    if (ID > 28) {
+      dealNewCard(ID);
+
+      var foundCardIdx = dealtArr.findIndex(x => x.id === cardID);
+      dealtArr.splice(foundCardIdx, 1);
+      
+      // var foundCardIdx2 = deckArr.findIndex(x => x.id === cardID);
+
+      console.log(dealtArr);
+      console.log(foundCardIdx);
+      // console.log(foundCardIdx2);
+      // dealtArr.pop(foundCard);
+      // deckArr.pop(cardID);
+    }
+  }
+})
+
+
+
+
+function dealNewCard(ID) {
+  console.log('DEAL');
+  console.log(ID);
+  ID = parseInt(ID);
+  // use ID of dropped card to find nearest ID l
+  //to find card behind recently dropped card... you will have to write a function that finds the next one if it is not directly the next one
+  dealtArr.forEach(function(card) {
+    let centerToRight = document.getElementById(`${secondDealt.id}`);
+    console.log(centerToRight);
+
+    let leftToCenter = document.getElementById(`${firstDealt.id}`)
+
+    centerToRight.classList.remove("center");
+    centerToRight.classList.add("right");
+    centerToRight.setAttribute('draggable', true);
+
+    leftToCenter.classList.remove("left");
+    leftToCenter.classList.add("center");
+
+    console.log(dealtArr);
+    
+  })
+  
+
+
 };
+
+
+
+    
+
+    
+    
+  //   //grab image from that card
+  //   let newCardImg = `url(${newCard.img})`;
+  //   let cardID = newCard.id;
+  //   //apply image to cardD space
+  //   let card = document.getElementById(`${cardID}`);
+  //   //apply image to card 
+  //   card.style.backgroundImage = newCardImg;
+  //   card.style.display = 'block';
+  //   card.style.zIndex = dealtZIndex;
+    
+  //   //add class to card and set z-index
+  //   if(i === 1) {
+  //     dealtZIndex += 1;
+  //     card.classList.add('left');
+  //   } else if (i === 2) {
+  //     dealtZIndex += 1;
+  //     card.classList.add('center');
+  //   } else if (i === 3) {
+  //     dealtZIndex += 1;
+  //     card.classList.add('right');
+  //     thirdDealt = document.getElementById(`${cardID}`);
+  //     thirdDealt.setAttribute('draggable', true);
+  //     thirdDealt.addEventListener('dragstart', dragStart);
+  //     thirdDealt.addEventListener('dragend', dragEnd);
+  //   };
+  // };
 
 
 //--------------------\\  D R A G  //---------------------
